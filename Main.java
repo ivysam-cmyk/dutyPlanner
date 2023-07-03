@@ -26,7 +26,7 @@ public class Main {
         do {
             System.out.print("Which day number does the 1st fall on? eg. Monday=0,Tuesday=1... ");
             firstDateDay = s.nextInt();
-        } while (firstDateDay < 7 && firstDateDay>=0);
+        } while (firstDateDay > 7 && firstDateDay<0);
 
         for (int i = 0; i < calendar.length; i++) {
             for (int j = 0; j < calendar[0].length; j++) {
