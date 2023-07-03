@@ -3,7 +3,16 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void daySequence() {
+    public int[][] calendar;
+    public  int[][] getCalender(){
+        //ask the user the structure of the calender
+        daySequence();
+        for(int[] row : calendar){
+            System.out.println(row);
+        }
+        return calendar;
+    }
+    public int[][] daySequence() {
         System.out.println("How many days are there in the month?");
         Scanner s = new Scanner(System.in);
         int daysInMonth = s.nextInt();
@@ -13,14 +22,12 @@ public class Main {
         }
 
         //options of storing data: 2d array
-        int[][] calendar;
         if (daysInMonth > 28) {
             calendar = new int[5][7];
         } else {
             calendar = new int[4][7];
         }
         System.out.println("The length of the calender is " + calendar.length);
-        System.out.println("The length of the calender week is " + calendar[0].length);
 
         int firstDateDay;
         do {
@@ -34,18 +41,25 @@ public class Main {
                     //start from the firstDateDay
                     //print from 1-30 inside the 2d list
                     calendar[i][j] = dateList.remove(0);
+                    if (dateList.size()<1){
+                        return calendar;
+                    }
                 } else if (i > 0) {
                     //after the first row of the calendar, fill as per normal
                     calendar[i][j] = dateList.remove(0);
+                    if (dateList.size()<1){
+                        return calendar;
+                    }
                 }
             }
-
         }
         for (int[] row : calendar) {
             System.out.println(Arrays.toString(row));
         }
+        return calendar;
     }
     public static void main(String[] args){
-       daySequence();
+        Main newMonth = new Main();
+        newMonth.getCalender();
     }
 }
