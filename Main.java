@@ -37,20 +37,12 @@ public class Main {
                     //print from 1-30 inside the 2d list
                     calendar[i][j] = dateList.remove(0);
                     if (dateList.size()<1){
-                        System.out.println("---The calendar---");
-                        for(int[] row : calendar){
-                            System.out.println(Arrays.toString(row));
-                        }
                         return calendar;
                     }
                 } else if (i > 0) {
                     //after the first row of the calendar, fill as per normal
                     calendar[i][j] = dateList.remove(0);
                     if (dateList.size()<1){
-                        System.out.println("---The calendar---");
-                        for(int[] row : calendar){
-                            System.out.println(Arrays.toString(row));
-                        }
                         return calendar;
                     }
                 }
@@ -60,6 +52,13 @@ public class Main {
             System.out.println(Arrays.toString(row));
         }
         return calendar;
+    }
+    public void printCalendar(int[][] calendar){
+        System.out.println("---The calendar---");
+        for(int[] row : calendar){
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println(" ");
     }
     public void pointsToDays(int[][] calendar){
         //this function assigns points to days
@@ -81,6 +80,6 @@ public class Main {
     public static void main(String[] args){
         Main newMonth = new Main();
         newMonth.getCalendar();
-
+        newMonth.printCalendar(newMonth.calendar);
     }
 }
