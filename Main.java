@@ -7,9 +7,11 @@ public class Main {
     public  int[][] getCalender(){
         //ask the user the structure of the calender
         daySequence();
+        System.out.println("---The calendar---");
         for(int[] row : calendar){
-            System.out.println(row);
+            System.out.println(Arrays.toString(row));
         }
+        System.out.println("");
         return calendar;
     }
     public int[][] daySequence() {
