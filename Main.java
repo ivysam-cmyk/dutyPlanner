@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Main {
-    public int[][] calendar;
-    public  int[][] getCalendar(){
+    private int[][] calendar;
+    public int[][] getCalendar(){
         //ask the user the structure of the calendar
         daySequence();
         return calendar;
@@ -80,6 +80,7 @@ public class Main {
     public static void main(String[] args){
         Main newMonth = new Main();
         newMonth.getCalendar();
-        newMonth.printCalendar(newMonth.calendar);
+        newMonth.printCalendar(newMonth.getCalendar());
+        newMonth.pointsToDays(newMonth.getCalendar());
     }
 }
