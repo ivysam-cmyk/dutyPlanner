@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     private int[][] calendar;
     Dictionary<Integer, Integer> pointToDaysDict= new Hashtable<>();
-    public int totalPoints;
+    public int totalPoints = 0;
     public int[][] getCalendar(){
         //ask the user the structure of the calendar
         return calendar;
@@ -84,11 +84,12 @@ public class Main {
         int numberMedics = s.nextInt();
         //go through the dictionary
         Enumeration<Integer> p = pointToDaysDict.keys();
-        int key = p.nextElement();
         while(p.hasMoreElements()){
+            int key = p.nextElement();
             totalPoints += pointToDaysDict.get(key);
+            System.out.println("The key: "+ key+ " The accum value: " + totalPoints);//works till here
         }
-        return totalPoints;
+        return Double(totalPoints/numberMedics);
     }
 
     public static void main(String[] args){
@@ -96,6 +97,6 @@ public class Main {
         newMonth.daySequence();
         newMonth.printCalendar(newMonth.getCalendar());
         newMonth.pointsToDays(newMonth.getCalendar());
-
+        System.out.println(newMonth.pointsPerPerson());
     }
 }
