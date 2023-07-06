@@ -2,9 +2,10 @@ import java.util.*;
 
 public class Main {
     private int[][] calendar;
+    Dictionary<Integer, Integer> pointToDaysDict= new Hashtable<>();
+    public int totalPoints;
     public int[][] getCalendar(){
         //ask the user the structure of the calendar
-        daySequence();
         return calendar;
     }
     public int[][] daySequence() {
@@ -65,22 +66,36 @@ public class Main {
         // and returns a dictionary where key is the date and the points is the value
         //loop through each day in the calendar, for index [x][5] and [x][6] the points are 2
         //create a dictionary
-        Dictionary<Integer, Integer> pointToDayDict= new Hashtable<>();
         for (int i = 0; i < calendar.length; i++) {
             for (int j = 0; j < calendar[0].length; j++) {
                 if (j==5 || j==6){
-                   pointToDayDict.put(calendar[i][j],2);
+                   pointToDaysDict.put(calendar[i][j],2);
                 } else{
-                    pointToDayDict.put(calendar[i][j],1);
+                    pointToDaysDict.put(calendar[i][j],1);
                 }
             }
         }
-        System.out.println(pointToDayDict.size());
+        pointToDaysDict.remove(0);
+        System.out.println(pointToDaysDict);
     }
+    public int pointsPerPerson(){
+        System.out.print("How many people? ");
+        Scanner s = new Scanner(System.in);
+        int numberMedics = s.nextInt();
+        //go through the dictionary
+        Enumeration<Integer> p = pointToDaysDict.keys();
+        int key = p.nextElement();
+        while(p.hasMoreElements()){
+            totalPoints += pointToDaysDict.get(key);
+        }
+        return totalPoints;
+    }
+
     public static void main(String[] args){
         Main newMonth = new Main();
-        newMonth.getCalendar();
+        newMonth.daySequence();
         newMonth.printCalendar(newMonth.getCalendar());
         newMonth.pointsToDays(newMonth.getCalendar());
+
     }
 }
