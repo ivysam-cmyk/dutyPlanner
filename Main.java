@@ -4,6 +4,7 @@ public class Main {
     private int[][] calendar;
     Dictionary<Integer, Integer> pointToDaysDict= new Hashtable<>();
     Dictionary<Integer, Integer> pointToPersonDict= new Hashtable<>();
+    Dictionary<Integer, ArrayList<Integer>> personToDaysDict= new Hashtable<>();
     public int totalPoints = 0;
     public int[][] getCalendar(){
         //ask the user the structure of the calendar
@@ -65,27 +66,28 @@ public class Main {
     public void pointsToDays(int[][] calendar){
         //this function assigns points to days
         // and returns a dictionary where key is the date and the points is the value
-        //loop through each day in the calendar, for index [x][5] and [x][6] the points are 2
+        //loop through each day in the calendar, for index [x][5] and [x][6] the points are double
         //create a dictionary
         for (int i = 0; i < calendar.length; i++) {
             for (int j = 0; j < calendar[0].length; j++) {
                 if (j==5 || j==6){
-                   pointToDaysDict.put(calendar[i][j],2);
+                   pointToDaysDict.put(calendar[i][j],4);
                 } else{
-                    pointToDaysDict.put(calendar[i][j],1);
+                    pointToDaysDict.put(calendar[i][j],2);
                 }
             }
         }
         pointToDaysDict.remove(0);
         System.out.println(pointToDaysDict);
     }
-    public Double pointsPerPerson() {
+    public void pointsPerPerson() {
         System.out.print("How many people? ");
         Scanner s = new Scanner(System.in);
         int numberMedics = s.nextInt();
         s.close();
         //go through the dictionary
         Enumeration<Integer> p = pointToDaysDict.keys();
+        //calculate the total number of points in a month
         Double d = null;
         while (p.hasMoreElements()) {
             int key = p.nextElement();
@@ -100,8 +102,8 @@ public class Main {
         }
         //if totalPoints not divisible by numberMedics
         if (d%10 != 0){
-            System.out.println("Some will have to do more duty points than others");
             int excessPoints = totalPoints%10;
+            System.out.println("Most have to do " + totalPoints/numberMedics+" points, while " + excessPoints +" others have to do 1 extra point.");
             //get excessPoints number of medics
             for(int i=0; i<excessPoints; i++){
                 //get random keys from 1 -> n
@@ -118,17 +120,42 @@ public class Main {
 
             }
         }
-        System.out.println("The dict linking points to medics: "+pointToPersonDict);
-        System.out.println("Average number of points: "+ d);
-        return d;
     }
-
+    public void assignDuty(){
+       //using pointToPersonDict...
+        //create a list of all the medics from the dictionary
+        ArrayList<Integer> personList = Collections.list(pointToPersonDict.keys());
+        for(int i=0; i<calendar.length; i++){
+            for (int j =0; j<calendar[0].length; j++){
+                //get the list of 2 medics
+                for(int i=0; i<2;i++){
+                    ArrayList<Integer> listof2medics = new ArrayList<Integer>();
+                    //get 2 unique medics
+                    if(i==1) {
+                        int medicChoice;
+                        do {
+                            medicChoice = (int) (Math.random() * personList.size()) + 0;
+//                            find another medic, if the medic is the same, then find again.
+                        } while (medicChoice == listof2medics.get(0));
+                        listof2medics.add(medicChoice);
+                    } else {
+                        listof2medics.add(personList.get((int) (Math.random()*personList.size())+ 0));
+                    }
+                    //insert key(date), value(list of 2 medics) inside the personToDaysDict
+                    personToDaysDict.put(calendar[i][j], listof2medics);
+                }
+            }
+        }
+    }
 
     public static void main(String[] args){
         Main newMonth = new Main();
         newMonth.daySequence();
         newMonth.printCalendar(newMonth.getCalendar());
         newMonth.pointsToDays(newMonth.getCalendar());
-        System.out.println(newMonth.pointsPerPerson());
+        newMonth.pointsPerPerson();
+
+        System.out.println((int) Math.random() * 10);
+
     }
 }
