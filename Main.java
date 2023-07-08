@@ -129,7 +129,7 @@ public class Main {
         for(int i=0; i<calendar.length; i++){
             for (int j =0; j<calendar[0].length; j++){
                 //get the list of 2 medics
-                for(int i=0; i<2;i++){
+                for(int k=0; k<2;i++){
                     ArrayList<Integer> listof2medics = new ArrayList<Integer>();
 
                     //get 2 unique medics
@@ -153,7 +153,7 @@ public class Main {
         return personToDaysDict;
     }
 
-    public void finalDictChecker(){
+    public boolean finalDictChecker(){
        //go through personToDaysDict, make sure that there are no consecutive
         ArrayList<Integer> finalDictKeysArray = Collections.list(personToDaysDict.keys());
         for(int i = 0; i< daysInMonth-1; i++ ){
@@ -161,9 +161,12 @@ public class Main {
             ArrayList<Integer> eachDayArray2 = personToDaysDict.get(finalDictKeysArray.get(i+1));
             //check the consecutive days
             for(int j=0;j<2;j++){
-                if (eachDayArray.get(j)== eachDayArray2.get(0) || eachDayArray.get(j)== eachDayArray2.get(1))
+                if (eachDayArray.get(j)== eachDayArray2.get(0) || eachDayArray.get(j)== eachDayArray2.get(1)){
+                    return false;
+                }
             }
         }
+        return true;
     }
     public static void main(String[] args){
         Main newMonth = new Main();
@@ -171,8 +174,7 @@ public class Main {
         newMonth.printCalendar(newMonth.getCalendar());
         newMonth.pointsToDays(newMonth.getCalendar());
         newMonth.pointsPerPerson();
-
-        System.out.println((int) Math.random() * 10);
+        newMonth.finalDictChecker();
 
     }
 }
