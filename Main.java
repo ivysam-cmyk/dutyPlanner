@@ -111,6 +111,7 @@ public class Main {
                 if (pointToPersonDict.get(key) == totalPoints/numberMedics) {
                     pointToPersonDict.put(key, (pointToPersonDict.get(key) + 1));
                 }
+                //if it goes to add the points already added, restart the for loop
                 else{
                     i--;
                 }
