@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
     private int[][] calendar;
     Dictionary<Integer, Integer> pointToDaysDict= new Hashtable<>();
+    Dictionary<Integer, Integer> pointToPersonDict= new Hashtable<>();
     public int totalPoints = 0;
     public int[][] getCalendar(){
         //ask the user the structure of the calendar
@@ -78,19 +79,49 @@ public class Main {
         pointToDaysDict.remove(0);
         System.out.println(pointToDaysDict);
     }
-    public int pointsPerPerson(){
+    public Double pointsPerPerson() {
         System.out.print("How many people? ");
         Scanner s = new Scanner(System.in);
         int numberMedics = s.nextInt();
+        s.close();
         //go through the dictionary
         Enumeration<Integer> p = pointToDaysDict.keys();
-        while(p.hasMoreElements()){
+        Double d = null;
+        while (p.hasMoreElements()) {
             int key = p.nextElement();
             totalPoints += pointToDaysDict.get(key);
-            System.out.println("The key: "+ key+ " The accum value: " + totalPoints);//works till here
         }
-        return Double(totalPoints/numberMedics);
+        System.out.println("The total value: " + totalPoints);
+        d = ((double)totalPoints / (double)numberMedics);
+        //if d is not a whole number,
+        for(int i=0;i<numberMedics;i++){
+            //create the dict from 1->n
+            pointToPersonDict.put(i+1,totalPoints/numberMedics);
+        }
+        //if totalPoints not divisible by numberMedics
+        if (d%10 != 0){
+            System.out.println("Some will have to do more duty points than others");
+            int excessPoints = totalPoints%10;
+            //get excessPoints number of medics
+            for(int i=0; i<excessPoints; i++){
+                //get random keys from 1 -> n
+                int key = (int) (Math.random() *numberMedics) +1;
+                //and add 1 point to each of their existing points
+                //only add if wasnt added before
+                if (pointToPersonDict.get(key) == totalPoints/numberMedics) {
+                    pointToPersonDict.put(key, (pointToPersonDict.get(key) + 1));
+                }
+                else{
+                    i--;
+                }
+
+            }
+        }
+        System.out.println("The dict linking points to medics: "+pointToPersonDict);
+        System.out.println("Average number of points: "+ d);
+        return d;
     }
+
 
     public static void main(String[] args){
         Main newMonth = new Main();
