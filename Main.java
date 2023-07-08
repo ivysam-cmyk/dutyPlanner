@@ -6,6 +6,7 @@ public class Main {
     Dictionary<Integer, Integer> pointToPersonDict= new Hashtable<>();
     Dictionary<Integer, ArrayList<Integer>> personToDaysDict= new Hashtable<>();
     public int totalPoints = 0;
+    int daysInMonth=0;
     public int[][] getCalendar(){
         //ask the user the structure of the calendar
         return calendar;
@@ -13,7 +14,7 @@ public class Main {
     public int[][] daySequence() {
         System.out.println("How many days are there in the month?");
         Scanner s = new Scanner(System.in);
-        int daysInMonth = s.nextInt();
+        daysInMonth = s.nextInt();
         ArrayList<Integer> dateList = new ArrayList<Integer>();
         for (int i = 0; i < daysInMonth; i++) {
             dateList.add(i + 1);
@@ -121,7 +122,7 @@ public class Main {
             }
         }
     }
-    public void assignDuty(){
+    public Dictionary<Integer, ArrayList<Integer>> assignDuty(){
        //using pointToPersonDict...
         //create a list of all the medics from the dictionary
         ArrayList<Integer> personList = Collections.list(pointToPersonDict.keys());
@@ -130,6 +131,7 @@ public class Main {
                 //get the list of 2 medics
                 for(int i=0; i<2;i++){
                     ArrayList<Integer> listof2medics = new ArrayList<Integer>();
+
                     //get 2 unique medics
                     if(i==1) {
                         int medicChoice;
@@ -142,12 +144,23 @@ public class Main {
                         listof2medics.add(personList.get((int) (Math.random()*personList.size())+ 0));
                     }
                     //insert key(date), value(list of 2 medics) inside the personToDaysDict
+                    // this is to be done everyday of the month
                     personToDaysDict.put(calendar[i][j], listof2medics);
                 }
             }
         }
+        //check that there are no consecutive day same medics
+        return personToDaysDict;
     }
 
+    public void finalDictChecker(){
+       //go through personToDaysDict, make sure that there are no consecutive
+        ArrayList<Integer> finalDictKeysArray = Collections.list(personToDaysDict.keys());
+        for(int i = 0; i< daysInMonth; i++ ){
+           ArrayList<Integer> eachDayArray = personToDaysDict.get(finalDictKeysArray.get(i));
+
+        }
+    }
     public static void main(String[] args){
         Main newMonth = new Main();
         newMonth.daySequence();
