@@ -7,6 +7,3 @@
 4. [ ] assign 2 people to each day
 
 _rules for these days, same person cannot be on consecutive or same day._
-
-1. get the 1st random medic
-2. get the 2nd unique medic
