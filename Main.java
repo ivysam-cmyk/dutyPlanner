@@ -156,9 +156,13 @@ public class Main {
     public void finalDictChecker(){
        //go through personToDaysDict, make sure that there are no consecutive
         ArrayList<Integer> finalDictKeysArray = Collections.list(personToDaysDict.keys());
-        for(int i = 0; i< daysInMonth; i++ ){
-           ArrayList<Integer> eachDayArray = personToDaysDict.get(finalDictKeysArray.get(i));
-
+        for(int i = 0; i< daysInMonth-1; i++ ){
+            ArrayList<Integer> eachDayArray = personToDaysDict.get(finalDictKeysArray.get(i));
+            ArrayList<Integer> eachDayArray2 = personToDaysDict.get(finalDictKeysArray.get(i+1));
+            //check the consecutive days
+            for(int j=0;j<2;j++){
+                if (eachDayArray.get(j)== eachDayArray2.get(0) || eachDayArray.get(j)== eachDayArray2.get(1))
+            }
         }
     }
     public static void main(String[] args){
