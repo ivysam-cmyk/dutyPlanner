@@ -193,7 +193,7 @@ public class Main {
         newMonth.pointsToDays(newMonth.getCalendar());
         newMonth.pointsPerPerson();
         newMonth.assignDuty();
-//        System.out.println(newMonth.finalDictChecker());
+        System.out.println(newMonth.finalDictChecker());
 
     }
 }
