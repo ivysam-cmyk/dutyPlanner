@@ -175,12 +175,15 @@ public class Main {
             for (int i = 0; i < daysInMonth - 1; i++) {
                 ArrayList<Integer> eachDayArray = personToDaysDict.get(finalDictKeysArray.get(i));
                 ArrayList<Integer> eachDayArray2 = personToDaysDict.get(finalDictKeysArray.get(i + 1));
+                System.out.println("2 arrays being checked: " + eachDayArray + " and " + eachDayArray2);
                 //check the consecutive days
                 for (int j = 0; j < 2; j++) {
                     if (eachDayArray.get(j) == eachDayArray2.get(0) || eachDayArray.get(j) == eachDayArray2.get(1)) {
                         consecutiveCheck = false;
+                        if(!consecutiveCheck) break;
                     }
                 }
+                if(!consecutiveCheck) break;
             }
         } while (consecutiveCheck == false);
 
