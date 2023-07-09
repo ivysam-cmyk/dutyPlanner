@@ -151,23 +151,29 @@ public class Main {
         }
         System.out.println("Person to Days dictionary: "+personToDaysDict);
         //check that there are no consecutive day same medics
-        return personToDaysDict;
+        return this.personToDaysDict;
     }
 
-    public boolean finalDictChecker(){
-       //go through personToDaysDict, make sure that there are no consecutive
-        ArrayList<Integer> finalDictKeysArray = Collections.list(personToDaysDict.keys());
-        for(int i = 0; i< daysInMonth-1; i++ ){
-            ArrayList<Integer> eachDayArray = personToDaysDict.get(finalDictKeysArray.get(i));
-            ArrayList<Integer> eachDayArray2 = personToDaysDict.get(finalDictKeysArray.get(i+1));
-            //check the consecutive days
-            for(int j=0;j<2;j++){
-                if (eachDayArray.get(j)== eachDayArray2.get(0) || eachDayArray.get(j)== eachDayArray2.get(1)){
-                    return false;
+    public boolean finalDictChecker() {
+        //go through personToDaysDict, make sure that there are no consecutive
+        boolean consecutiveCheck;
+        do {
+            System.out.println("ConsecutiveCheck: "+consecutiveCheck);
+            assignDuty();
+            ArrayList<Integer> finalDictKeysArray = Collections.list(personToDaysDict.keys());
+            for (int i = 0; i < daysInMonth - 1; i++) {
+                ArrayList<Integer> eachDayArray = personToDaysDict.get(finalDictKeysArray.get(i));
+                ArrayList<Integer> eachDayArray2 = personToDaysDict.get(finalDictKeysArray.get(i + 1));
+                //check the consecutive days
+                for (int j = 0; j < 2; j++) {
+                    if (eachDayArray.get(j) == eachDayArray2.get(0) || eachDayArray.get(j) == eachDayArray2.get(1)) {
+                        consecutiveCheck = false;
+                    }
                 }
             }
-        }
-        return true;
+        } while (consecutiveCheck == false);
+
+        return consecutiveCheck;
     }
     public static void main(String[] args){
         Main newMonth = new Main();
@@ -176,7 +182,7 @@ public class Main {
         newMonth.pointsToDays(newMonth.getCalendar());
         newMonth.pointsPerPerson();
         newMonth.assignDuty();
-        newMonth.finalDictChecker();
+        System.out.println(newMonth.finalDictChecker());
 
     }
 }
