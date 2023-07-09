@@ -127,28 +127,29 @@ public class Main {
         //create a list of all the medics from the dictionary
         ArrayList<Integer> personList = Collections.list(pointToPersonDict.keys());
         for(int i=0; i<calendar.length; i++){
-            for (int j =0; j<calendar[0].length; j++){
+            for (int j =0; j<calendar[0].length; j++) {
                 //get the list of 2 medics
-                for(int k=0; k<2;i++){
-                    ArrayList<Integer> listof2medics = new ArrayList<Integer>();
-
+                ArrayList<Integer> listof2medics = new ArrayList<Integer>();
+                for (int k = 0; k < 2; k++) {
                     //get 2 unique medics
-                    if(i==1) {
+                    if (k == 1) {
                         int medicChoice;
                         do {
-                            medicChoice = (int) (Math.random() * personList.size()) + 0;
+                            medicChoice = (int) (Math.random() * personList.size()) + 1;
+                            System.out.println("The medic chosen: " + medicChoice);
 //                            find another medic, if the medic is the same, then find again.
                         } while (medicChoice == listof2medics.get(0));
                         listof2medics.add(medicChoice);
                     } else {
-                        listof2medics.add(personList.get((int) (Math.random()*personList.size())+ 0));
+                        listof2medics.add(personList.get((int) (Math.random() * personList.size()) + 0));
                     }
                     //insert key(date), value(list of 2 medics) inside the personToDaysDict
                     // this is to be done everyday of the month
-                    personToDaysDict.put(calendar[i][j], listof2medics);
                 }
+                personToDaysDict.put(calendar[i][j], listof2medics);
             }
         }
+        System.out.println("Person to Days dictionary: "+personToDaysDict);
         //check that there are no consecutive day same medics
         return personToDaysDict;
     }
@@ -174,6 +175,7 @@ public class Main {
         newMonth.printCalendar(newMonth.getCalendar());
         newMonth.pointsToDays(newMonth.getCalendar());
         newMonth.pointsPerPerson();
+        newMonth.assignDuty();
         newMonth.finalDictChecker();
 
     }
