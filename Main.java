@@ -131,13 +131,11 @@ public class Main {
                 // skip the 0 at the start and behind
                 if(i==0){
                     while(calendar[i][j] == 0){
-                        System.out.println("Start of calender");
                         j++;
                     }
                 }
                 //once you reach the end of the calender, stop
                 if((i==4 || i==5) && (calendar[i][j] ==0)){
-                    System.out.println("End of calender");
                    break;
                 }
                 //get the list of 2 medics
@@ -145,12 +143,10 @@ public class Main {
                 for (int k = 0; k < 2; k++) {
                     //get 2 unique medics
                     if (k == 1) {
-                        int medicChoice;
-                        do {
-                            medicChoice = (int) (Math.random() * personList.size()) + 1;
-//                            find another medic, if the medic is the same, then find again.
-                        } while (medicChoice == listof2medics.get(0));
-                        listof2medics.add(medicChoice);
+                        ArrayList<Integer> personListClone = new ArrayList<>(personList);
+                        personListClone.remove(listof2medics.get(0));
+                        //choose from list-(already chosen)
+                        listof2medics.add(personListClone.get((int) (Math.random() * personListClone.size()) + 0));
                     } else {
                         listof2medics.add(personList.get((int) (Math.random() * personList.size()) + 0));
                     }
@@ -162,7 +158,7 @@ public class Main {
         }
         System.out.println("Person to Days dictionary: "+personToDaysDict);
         //check that there are no consecutive day same medics
-        return this.personToDaysDict;
+        return personToDaysDict;
     }
 
     public boolean finalDictChecker() {
