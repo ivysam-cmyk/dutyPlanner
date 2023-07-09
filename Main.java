@@ -88,7 +88,7 @@ public class Main {
         s.close();
         //go through the dictionary
         Enumeration<Integer> p = pointToDaysDict.keys();
-        //calculate the total number of points in a month
+        //calculate the TOTAL number of points in a month
         Double d = null;
         while (p.hasMoreElements()) {
             int key = p.nextElement();
@@ -102,7 +102,7 @@ public class Main {
             pointToPersonDict.put(i+1,totalPoints/numberMedics);
         }
         //if totalPoints not divisible by numberMedics
-        if (d%10 != 0){
+        if (d%numberMedics != 0){
             int excessPoints = totalPoints%10;
             System.out.println("Most have to do " + totalPoints/numberMedics+" points, while " + excessPoints +" others have to do 1 extra point.");
             //get excessPoints number of medics
@@ -128,6 +128,18 @@ public class Main {
         ArrayList<Integer> personList = Collections.list(pointToPersonDict.keys());
         for(int i=0; i<calendar.length; i++){
             for (int j =0; j<calendar[0].length; j++) {
+                // skip the 0 at the start and behind
+                if(i==0){
+                    while(calendar[i][j] == 0){
+                        System.out.println("Start of calender");
+                        j++;
+                    }
+                }
+                //once you reach the end of the calender, stop
+                if((i==4 || i==5) && (calendar[i][j] ==0)){
+                    System.out.println("End of calender");
+                   break;
+                }
                 //get the list of 2 medics
                 ArrayList<Integer> listof2medics = new ArrayList<Integer>();
                 for (int k = 0; k < 2; k++) {
@@ -136,7 +148,6 @@ public class Main {
                         int medicChoice;
                         do {
                             medicChoice = (int) (Math.random() * personList.size()) + 1;
-                            System.out.println("The medic chosen: " + medicChoice);
 //                            find another medic, if the medic is the same, then find again.
                         } while (medicChoice == listof2medics.get(0));
                         listof2medics.add(medicChoice);
@@ -158,7 +169,7 @@ public class Main {
         //go through personToDaysDict, make sure that there are no consecutive
         boolean consecutiveCheck;
         do {
-            System.out.println("ConsecutiveCheck: "+consecutiveCheck);
+            consecutiveCheck = true;
             assignDuty();
             ArrayList<Integer> finalDictKeysArray = Collections.list(personToDaysDict.keys());
             for (int i = 0; i < daysInMonth - 1; i++) {
@@ -182,7 +193,7 @@ public class Main {
         newMonth.pointsToDays(newMonth.getCalendar());
         newMonth.pointsPerPerson();
         newMonth.assignDuty();
-        System.out.println(newMonth.finalDictChecker());
+//        System.out.println(newMonth.finalDictChecker());
 
     }
 }
